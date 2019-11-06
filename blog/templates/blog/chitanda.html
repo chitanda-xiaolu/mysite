@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load comment_tags %}
+{% block head %}
+<head>
+    <meta charset="UTF-8">
+    <!--告知IE浏览器使用最新内核-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="个人博客,后端,摄影,动漫,音乐,崩坏3,一位热爱崩坏3的站长,二次元">
+    <title>{% block title %}(・ω< )★  ChitandaZone{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="../static/images/log_trr.jpg">
+    <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap3.3/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tanda_blog.css' %}">
+</head>
+{% endblock %}
+<body>
+<!-----------------导航栏开始----------------->
+<div class="navbar navbar-default navbar-fixed-top" id='header' role="navigation" >
+  <div class="container-fluid" style="padding: 0px">
+    <div class="navbar-header">
+      <a href="/"><img src="{% static 'images/logo.png' %}" style="height: 54px; padding: 0px; margin-left: 0.6em"/></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li role="presentation"><a href="\">博客</a></li>
+        <li><a href="/blog/type/2">摄影</a></li>
+        <li><a href="https://music.163.com/#/playlist?id=808697539" target="_blank">音乐</a></li>
+        <li><a href="/aboutme">关于</a></li>
+      </ul>
+     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em">
+        {% if not user.is_authenticated %}
+           <li>
+               <a href="{% url 'userlogin' %}?from={{ request.path }}">登录</a>
+           </li>
+           <li>
+               <a href="{% url 'register' %}?from={{ request.path }}">注册</a>
+           </li>
+        {% else %}
+           <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">{{ user.username }}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                   <a href="{% url 'userinfo' %}">
+                      <i class="fa fa-info-circle" aria-hidden="true">用户信息</i>
+                   </a>
+                </li>
+                <li>
+                   <a href="{% url 'change_password' %}">
+                       <i class="fa fa-key" aria-hidden="true">修改密码</i>
+                   </a>
+                </li>
+                {% if user.is_staff or user.is_superuser %}
+                <li>
+                   <a href="{% url 'admin:index' %}">
+                      <i class="fa fa-server" aria-hidden="true">后台管理</i>
+                   </a>
+                </li>
+                {% endif %}
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="{% url 'logout' %}?from={{ request.get_full_path }}">
+                       <i class="fa fa-sign-out" aria-hidden="true">注销</i>
+                    </a>
+                </li>
+              </ul>
+           </li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-----------------导航栏结束----------------->
+<!----------------------页面主体开始------------------->
+<div class="container-fluid">
+  <div class="row main-body">
+    {% block article %}
+    <div class="col-md-11 col-lg-8 blog_container">
+      <!------------------幻灯片----------------->
+        <div class="swiper-container hidden-xs">
+          <div class="swiper-wrapper">
+             {% for banner in banners %}
+             <div class="swiper-slide">
+               <a href="{{ banner.banner_url }}">
+                 <img src="{{ banner.banner_img.url }}" alt="">
+               </a>
+               <a href="{{ banner.banner_url }}" class="banner_title">{{ banner.banner_title }}</a>
+             </div>
+             {% endfor %}
+          </div>
+             <div class="swiper-pagination"></div>
+             <div class="swiper-button-prev">
+                <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+             </div>
+             <div class="swiper-button-next">
+                <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+             </div>
+            </div>
+            <div class="swiper-container visible-xs">
+              <div class="swiper-wrapper">
+                 {% for banner in banners %}
+                 <div class="swiper-slide">
+                   <a href="{{ banner.banner_url }}">
+                     <img src="{{ banner.banner_img.url }}" alt="" style="height: 236px">
+                   </a>
+                   <a href="" class="banner_title">{{ banner.banner_title }}</a>
+                 </div>
+                 {% endfor %}
+              </div>
+              <div class="swiper-pagination"></div>
+              <div class="swiper-button-prev">
+                 <i class="fa fa-chevron-circle-left" aria-hidden="true"></i>
+              </div>
+              <div class="swiper-button-next">
+                 <i class="fa fa-chevron-circle-right" aria-hidden="true"></i>
+              </div>
+            </div>
+       <!--------------幻灯片结束------------------------->
+        <!------------------博客卡片------------------------>
+         {% block blog_card %}
+         <div class="row list-container">
+            {% for blog in page %}
+            <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <div class="img-container">
+                   <a href="{% url 'blog_detail' blog.pk %}">
+                    <img src="/media/{{ blog.thumbnail }}/" style="width: 100%;height: 210px" class="visible-xs">
+                    <img src="/media/{{ blog.thumbnail }}/" style="width: 100%;height: 160px" class="hidden-xs">
+                   </a>
+                </div>
+                <div class="caption" style="padding: 0; overflow: hidden">
+                   <h5 style="margin-bottom: 0"><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a></h5>
+                   <span style="margin-right: 6em">{{ blog.created_time|date:"Y-m-d" }}</span>
+                   <span class="pull-right" style="margin-right: 1em">评论({% get_comment_count blog %})</span>
+                   <span class="pull-right" style="margin-right: 1em">浏览({{ blog.get_visits }})</span>
+                </div>
+             </div>
+            </div>
+            {% endfor %}
+           {% endblock %}
+         </div>
+        <!------------------------------分页开始--------------------------------------->
+      {% block divpage %}
+      <nav aria-label="Page navigation" class="pagediv" style="text-align: center">
+          <ul class="pagination">
+             <li>
+             {% if page.has_previous %}
+              <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+             {% else %}
+              <span aria-hidden="true">&laquo;</span>
+            {% endif %}
+             </li>
+            {% for pagenum in page_range %}
+              {% if pagenum == page.number %}
+              <li class="active"><span>{{ pagenum }}</span></li>
+              {% else %}
+                  {% if pagenum == '...' %}
+                    <li><span>{{ pagenum }}</span></li>
+                  {% else %}
+                    <li><a href="?page={{ pagenum }}">{{ pagenum }}</a></li>
+                  {% endif %}
+              {% endif %}
+            {%  endfor%}
+            <li>
+             {% if page.has_next %}
+              <a href="?page={{ page.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+             {% else %}
+              <span aria-hidden="true">&raquo;</span>
+             {%endif%}
+             </li>
+          </ul>
+        </nav>
+        {% endblock %}
+<!-------------------------------分页结束------------------------------------------>
+
+<!-------------------------博客卡片结束--------------------->
+    </div>
+    {% endblock %}
+    <div class="col-md-3 visible-lg sidebar-container">
+         <div class="panel panel-info">
+          <div class="panel-heading" id="panel-heading"><h4>站点相关</h4></div>
+           <div class="panel-body">
+             <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="menu-list" style="">
+                        <span class="menu-btn">前端编程相关</span>
+                        <ul class="submenu" style="display: block">
+                            <li><a href="/blog/type/5">HTML5/CSS3</a></li>
+                            <li><a href="/blog/type/7">pyhton</a></li>
+                            <li><a href="/blog/type/4">javaScript/Vue</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <span class="menu-btn">后端编程相关</span>
+                        <ul class="submenu">
+                            <li><a href="/blog/type/1">Django</a></li>
+                            <li><a href="/blog/type/8">PHP</a></li>
+                            <li><a href="/blog/type/9">Node.js</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <span class="menu-btn">ACG</span>
+                        <ul  class="submenu">
+                            <li><a href="/blog/type/10">动漫</a></li>
+                            <li><a href="/blog/type/3">游戏</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <!--//给文本加上a标签可以取消文本被选中的默认行为-->
+                        <span class="menu-btn">摄影及后期</span>
+                        <ul  class="submenu">
+                            <li><a href="/blog/type/2">摄影杂谈</a></li>
+                            <li><a href="/blog/type/8">摄影后期</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>摄影作品</h4>
+                <ul class="photography">
+                    {% for photo in photos %}
+                    <li><a href="{{ photo.photo.url }}" target="_blank">{{ photo.photo_name }}<img src="{{ photo.photo.url }}"/></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+           </div>
+        </div>
+    </div>
+   </div>
+</div>
+<!----------------------页面主体结束------------------->
+<script src="{% static '' %}js/jquery.min.js"></script>
+<script src="{% static '' %}bootstrap3.3/js/bootstrap.min.js"></script>
+<script src="{% static '' %}js/swiper.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('.menu-list').click(function(){
+                $(this).children(".submenu").slideToggle('900')
+            })
+        })
+</script>
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        autoplay: true,
+        loop : true,
+        speed: 600,
+        pagination: {
+            el: '.swiper-pagination',
+        },
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+    })
+</script>
+</body>
+</html>

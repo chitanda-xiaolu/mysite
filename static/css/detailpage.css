@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.col-xs-1 img{
+    margin-top: 0.6em;
+    margin-right: 2em;
+}
+
+.bloghead {
+    height: 76px;
+    margin-left: 1em;
+}
+
+.col-xs-10 {
+    margin-bottom: 0.1em;
+}
+
+.col-xs-10 span {
+    margin-right: 0.6em;
+    padding-right: 0.6em;
+}
+
+.col-xs-10 div {
+    display: inline-block;
+}
+
+.t {
+    display: block;
+    padding-top: -0.5em;
+}
+
+.col-xs-12  p {
+    font-size: 16px;
+    padding: 1em;
+}
+
+.col-md-9 {
+    background: rgba(255,255,255,0.8);
+}
+
+
+/*评论区*/
+.comment-area {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.comment-area>h4 {
+    border-bottom: 1px solid #e5e9ef;
+    padding-bottom: 0.4em;
+}
+
+.comment-info {
+    margin-bottom: 0.6em;
+}
+
+.comment-info>span {
+    display: block;
+}
+
+.django-ckeditor-widget {
+    width: 100%;
+}
+.reply {
+    margin-left: 1.2em;
+}
+
+#liked_num {
+    padding: 0;
+    margin: 0;
+}
+
+.comment-info {
+    border-bottom: #e5e9ef 1px solid;
+}

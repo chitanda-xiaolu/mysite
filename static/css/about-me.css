@@ -1,0 +1,225 @@
+html{
+    cursor: url(../images/web_cursor.cur),auto;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    /*background: url(../images/bg_01.jpg);*/
+    /*background-repeat: repeat;*/
+    background: url(../images/56342769_p0.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+    color: #ffffff;
+}
+/*将元素变成块级元素*/
+h3{
+    display: inline-block;
+}
+
+/*------------------>设置头部导航栏开始<-------------------*/
+#header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 56px;
+    z-index: 1;
+    /*设置导航栏底部彩色边框*/
+    background-image: url(../images/topfixed_bg.png);
+    background-repeat: repeat-x;
+    background-position: bottom;
+    overflow: hidden;
+}
+/*添加毛玻璃特效*/
+#header:before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255,255,255,0.7);
+    filter: blur(3px);
+	z-index: -1;
+}
+/*设置logo的大小*/
+.web-logo img{
+    position: fixed;
+    height: 53px;
+    z-index: 4;
+}
+/*设置导航菜单的位置*/
+.navigation{
+    margin-left: 260px;
+}
+
+.navigation>ul>li{
+    list-style: none;
+    float: left;
+    margin-right: 20px;
+    text-align: center;
+    padding-top: 14px;
+}
+.navigation>ul>li>a{
+    display: block;
+    width: 58px;
+    height: 56px;
+}
+/*鼠标指向导航栏菜单颜色变化的鼠标事件*/
+.navigation>ul>li:hover{
+    background: rgba(190,190,190,0.6);
+
+}
+/*设置欲浏览时的鼠标指针变换*/
+.navigation a:hover,.web-logo a,.picturs-show img, .sidebar li a,.items a:hover,.r,.c{
+    cursor: url(../images/web_cursor_link.cur),auto;
+}
+*:active{
+    cursor: url(../images/web_cursor_link.cur),auto;
+}
+
+
+.navigation li a{
+    text-decoration: none;
+    color: #000000;
+
+}
+/*------------------>设置头部导航栏结束<-------------------*/
+
+/*------------------introduce-box设置开始-------------------*/
+.top-box{
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    top: 8.3%;
+}
+.portrait{
+    width: 128px;
+    height: 128px;
+    border-radius: 70px 70px;
+    overflow: hidden;
+    /*相对于body的绝对定位*/
+    position: absolute;
+    left: 20px;
+}
+.portrait img{
+    width: 128px;
+    height: 128px;
+
+}
+.introduce-box{
+    position: absolute;
+    top: 10%;
+    left: 15.3%;
+    width: 960px;
+    height: 260px;
+    background-color: rgba(0,0,0,0.35);
+}
+.introduce-box h3{
+    font-size: 24px;
+    color: #ffffff;
+    background-image: url(../images/line_wave_w.png);
+    padding: 0 3px 15px 3px;
+    margin-bottom: 40px;
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.about-me{
+    position: absolute;
+    width: 760px;
+    top: 44%;
+    left: 20%;
+    background-image: url(../images/dot.png);
+    background-position: bottom;
+    background-repeat: repeat-x;
+}
+.name{
+    font-size: 30px;
+    display: inline-block;
+    margin-bottom: 14px;
+    padding-left: 8px;
+}
+.my-information{
+    display: inline-block;
+    font-size: 18px;
+    margin-bottom: 10px;
+    padding-left: 8px;
+
+}
+
+/*------------------introduce-box设置结束-------------------*/
+.imformation-box{
+    width: 960px;
+    height: 80%;
+    background-color: rgba(0,0,0,0.35);
+    position: absolute;
+    top: 60%;
+    left: 15.3%;
+}
+.imformation-box li{
+    list-style: none;
+}
+.imformation-box h4{
+    color: #ffa9be;
+    font-weight: normal;
+    margin: 8px;
+    border-bottom: 2px solid #ffa9be;
+    line-height: 32px;
+    width: 180px;
+}
+.imf-items {
+    margin-left: 8px;
+}
+.imf-items li{
+    float: left;
+    margin-right: 58px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.titles{
+    /*display: inline-block;*/
+    font-size: 14px;
+    border-bottom: #d1d1d1 solid 2px;
+    width: 180px;
+}
+.communication{
+    margin-top: 60px;
+    margin-left: 8px;
+}
+.communication li{
+    margin-top: 30px;
+    float: left;
+    margin-left: 23px;
+    margin-right: 20px;
+    text-align: center;
+    width: 270px;
+    height: 46px;
+    border-radius: 23px;
+}
+.communication>li>a{
+    display: inline-block;
+    box-sizing: border-box;
+    width: 270px;
+    height: 46px;
+    background: #3498db;
+    border-radius: 23px;
+    padding-top: 11px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: 0.6s linear;
+}
+.communication>li>a:hover{
+    cursor: url(../images/web_cursor_link.cur),auto;
+    color: #000000;
+    background: rgba(255,255,255,0.6);
+    transform: scale(1.2);
+}
+
+/*------------------introduce-box设置结束-------------------*/
+
+/*------------------introduce-box设置结束-------------------*/

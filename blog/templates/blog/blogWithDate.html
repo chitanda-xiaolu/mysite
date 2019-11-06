@@ -1,0 +1,101 @@
+{% extends 'blog/chitanda.html' %}
+{% load static %}
+{% load comment_tags %}
+
+{% block title %}{{ blog_with_date }}{% endblock %}
+
+
+{% block content %}
+<!--幻灯片开始-->
+       <div class="visible-xs" style="width: 100%; height: 240px;margin-bottom: 2em">
+         <div class="swiper-container">
+           <div class="swiper-wrapper">
+             {% for banner in banners %}
+             <div class="swiper-slide">
+                 <a href="{{ banner.banner_url }}">
+                    <img src="{{ banner.banner_img.url }}" alt="123" style="height: 240px; width: 100%">
+                 </a>
+                 <a href="{{ banner.banner_url }}" id="banner_title1">{{ banner.banner_title }}</a>
+             </div>
+             {% endfor %}
+           </div>
+           <div class="swiper-pagination"></div>
+           <div class="swiper-button-prev"></div>
+           <div class="swiper-button-next"></div>
+         </div>
+       </div>
+       <div  class="hidden-xs swiper-hidden-xs" id="swiper-hidden-xs" style="width: 100%; height: 300px;margin-bottom: 2em">
+         <div class="swiper-container">
+           <div class="swiper-wrapper">
+             {% for banner in banners %}
+               <div class="swiper-slide">
+                   <a href="{{ banner.banner_url }}">
+                       <img src="{{ banner.banner_img.url }}"  style="height: 300px; width: 100%">
+                   </a>
+                   <a href="{{ banner.banner_url }}" id="banner_title">{{ banner.banner_title }}</a>
+               </div>
+             {% endfor %}
+           </div>
+           <div class="swiper-pagination"></div>
+           <div class="swiper-button-prev"></div>
+           <div class="swiper-button-next"></div>
+         </div>
+       </div>
+      <!--幻灯片结束-->
+       <!---------------------博客卡片开始-------------------------->
+       <div class="row">
+           {% for blog in blogs %}
+           <div class="col-sm-6 col-md-4">
+              <div class="thumbnail">
+                <div class="img-container">
+                   <a href="{% url 'blog_detail' blog.pk %}">
+                    <img src="/media/{{ blog.thumbnail }}/" style="width: 100%; height: 152px">
+                   </a>
+                </div>
+                <div class="caption" style="padding: 0; overflow: hidden">
+                    <h5 style="margin-bottom: 0"><a href="{% url 'blog_detail' blog.pk %}">{{ blog.title }}</a></h5>
+                    <span style="margin-right: 6em">{{ blog.created_time|date:"Y-m-d" }}</span>
+                    <span class="pull-right">评论({% get_comment_count blog %})</span>
+                    <span class="pull-right">浏览({{ blog.get_visits }})</span>
+                </div>
+             </div>
+          </div>
+          {% endfor %}
+       </div>
+<!-------------------博客卡片结束------------------------------>
+{% endblock %}
+{% block divpage %}
+      <nav aria-label="Page navigation" class="pagediv" style="text-align: center">
+          <ul class="pagination">
+             <li>
+             {% if page.has_previous %}
+              <a href="?page={{ page.previous_page_number }}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+             {% else %}
+              <span aria-hidden="true">&laquo;</span>
+            {% endif %}
+             </li>
+            {% for pagenum in page_range %}
+              {% if pagenum == page.number %}
+              <li class="active"><span>{{ pagenum }}</span></li>
+              {% else %}
+                  {% if pagenum == '...' %}
+                    <li><span>{{ pagenum }}</span></li>
+                  {% else %}
+                    <li><a href="?page={{ pagenum }}">{{ pagenum }}</a></li>
+                  {% endif %}
+              {% endif %}
+            {%  endfor%}
+            <li>
+             {% if page.has_next %}
+              <a href="?page={{ page.next_page_number }}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+             {% else %}
+              <span aria-hidden="true">&raquo;</span>
+             {%endif%}
+             </li>
+          </ul>
+        </nav>
+{% endblock %}

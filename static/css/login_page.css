@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgba(242,202,192,0.2);
+}
+
+
+#left-img {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+#left-img img {
+    width:  100%;
+}
+
+.form-container {
+    /*background: rgba(255,255,255,0.6);*/
+    height: 48.7em;
+    margin-left: 4em;
+    padding: 0;
+    border-radius: 2px;
+}
+
+.form-container-xs {
+    margin-left: 2em;
+}
+
+.form_body {
+    margin: 1em;
+}
+
+.form_body>form {
+    margin-top: 6em;
+}
+
+.form-text {
+    margin-bottom: 2em;
+
+}
+
+
+.form-text {
+    border-left: 2px;
+}
+
+.form-text>input {
+    width: 320px;
+    height: 36px;
+    padding-left: 10px;
+    margin-left: 0.2em;
+    border-radius: 0.22em;
+    border: 1px solid #dcdfe6;
+    background: white;
+}
+
+.form-text-xs>input {
+    width: 100%;
+    height: 36px;
+    padding-left: 10px;
+    margin-bottom: 2em;
+    border-radius: 0.22em;
+    border: 1px solid #dcdfe6;
+    background: white;
+}
+
+.form-text>i {
+    color: rgba(0,0,0,0.6);
+    font-size: 20px;
+}
+
+.form-btn>input {
+    width: 320px;
+    height: 36px;
+    text-align: center;
+    margin-bottom: 1em;
+    color: white;
+    background: #00a7de;
+    border: 1px #00a7de solid;
+    border-radius: 0.22em;
+
+}
+
+.form-btn-xs>input {
+    width: 100%;
+    height: 36px;
+    text-align: center;
+    margin-bottom: 1em;
+    color: white;
+    background: #00a7de;
+    border: 1px #00a7de solid;
+    border-radius: 0.22em;
+
+}
+
+.form-btn>input:hover {
+    background: #00a7dead;
+
+}
+
+#send-code {
+    margin-bottom: 2em;
+    /*margin-left: 0.3em;*/
+    left: 0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+#send-code>input {
+    /*width: 12.8em;*/
+    padding-left: 0;
+    height: 36px;
+    padding-left: 8px;
+    margin-right: 0.2em;
+    margin-bottom: 1em;
+    outline: 0;
+    border-radius: 0.22em;
+    border: 1px solid #dcdfe6
+}
+
+#send-code>button {
+    width: 92px;
+    height: 36px;
+    color: white;
+    background: #00a7de;
+    border: 1px #00a7de solid;
+    border-radius: 0.22em;
+}
+
+#send-code>button:hover {
+    background: #00a7dead;
+
+}

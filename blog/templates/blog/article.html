@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+{% load comment_tags %}
+<head>
+    <meta charset="UTF-8">
+    <!--告知IE浏览器使用最新内核-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="个人博客,后端,摄影,动漫,音乐,崩坏3,一位热爱崩坏3的站长,二次元">
+    <title>{{ blog.title }}</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/log_trr.jpg' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap3.3/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+    <link rel="stylesheet" href="{% static 'css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tanda_article.css' %}">
+</head>
+<body>
+<!-----------------导航栏开始----------------->
+<div class="navbar navbar-default navbar-fixed-top" id='header' role="navigation" >
+  <div class="container-fluid" style="padding: 0px">
+    <div class="navbar-header">
+      <a href="/"><img src="{% static 'images/logo.png' %}" style="height: 54px; padding: 0px; margin-left: 0.6em"/></a>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" >
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li role="presentation"><a href="\">博客</a></li>
+        <li><a href="/blog/type/2">摄影</a></li>
+        <li><a href="https://music.163.com/#/playlist?id=808697539" target="_blank">音乐</a></li>
+        <li><a href="/aboutme">关于</a></li>
+      </ul>
+     <ul class="nav navbar-nav navbar-right" style="margin-right: 1em">
+        {% if not user.is_authenticated %}
+           <li>
+               <a href="{% url 'userlogin' %}?from={{ request.path }}">登录</a>
+           </li>
+           <li>
+               <a href="{% url 'register' %}?from={{ request.path }}">注册</a>
+           </li>
+        {% else %}
+           <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">{{ user.username }}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li>
+                   <a href="{% url 'userinfo' %}">
+                      <i class="fa fa-info-circle" aria-hidden="true">用户信息</i>
+                   </a>
+                </li>
+                <li>
+                   <a href="{% url 'change_password' %}">
+                       <i class="fa fa-key" aria-hidden="true">修改密码</i>
+                   </a>
+                </li>
+                {% if user.is_staff or user.is_superuser %}
+                <li>
+                   <a href="{% url 'admin:index' %}">
+                      <i class="fa fa-server" aria-hidden="true">后台管理</i>
+                   </a>
+                </li>
+                {% endif %}
+                <li role="separator" class="divider"></li>
+                <li>
+                    <a href="{% url 'logout' %}?from={{ request.get_full_path }}">
+                       <i class="fa fa-sign-out" aria-hidden="true">注销</i>
+                    </a>
+                </li>
+              </ul>
+           </li>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</div>
+<!-----------------导航栏结束----------------->
+<!----------------------页面主体开始------------------->
+<div id="blog_container" class="container-fluid">
+  <div class="row">
+    <div class="col-xs-11 col-md-11 col-lg-8  blog_container article_container">
+       <div class="row">
+             <div class="col-xs-3 col-md-1 portrait">
+              <img src="{{ blog.author.profile.user_head.url }}"class="img-rounded" style="width: 100%;margin: 1em 0.6em">
+             </div>
+             <div class="col-xs-9 col-md-6">
+             <div class="author-info">
+                <div><h4>{{ blog.title }}</h4></div>
+                <span>作者:{{ blog.author }}</span>
+                <span>时间:{{ blog.created_time }}</span>
+                <span>分类:<a href="{% url 'blog_with_type' blog.blog_type.pk %}">{{ blog.blog_type }}</a></span>
+             </div>
+             </div>
+       </div>
+       <div class="col-md-12 article-content">
+           <article>{{ blog.content|safe }}</article>
+       </div>
+       <div class="col-md-12 tanda_comment">
+          <span><h3>评论</h3></span>
+          <div class="row comment_container">
+              <div id="comment_list">
+                  {% get_comment_list blog as comments %}
+                  {% for comment in comments %}
+                  <div id="root_{{ comment.pk }}" class="comment-info">
+                      <div class="col-xs-3 col-md-1 comment_head">
+                        <img src="{{ comment.user.profile.user_head.url }}" alt="..." class="img-circle" style="width: 100%">
+                      </div>
+                      <div class="col-xs-9 col-md-10 user_comment">
+                        <span class="nickname">{{ comment.user.get_nickname_or_username }}:</span>
+                        <div id="comment_{{ comment.pk }}" class="comment_content">
+                            <span>{{ comment.comment_text|safe }}</span>
+                        </div>
+                        <div class="comment_info">
+                           <span>{{ comment.comment_time|date:"Y-m-d  H:i:s" }}</span>
+                           <span style="display: block"><a href="javascript:reply({{ comment.pk }});">回复</a></span>
+                        </div>
+                     </div>
+                     <div class="col-xs-11 replay_container">
+                         {% for reply in comment.root_comment.all %}
+                         <div class="row replay_info">
+                            <div class="col-xs-3 col-md-1">
+                               <img src="{{ reply.user.profile.user_head.url }}" alt="..." class="img-circle" style="width: 100%">
+                            </div>
+                            <div class="col-xs-9" style="padding-left: 0; padding-top: 0.5em">
+                                 <span>{{ reply.user.get_nickname_or_username }} 回复：</span>
+                                 <span>{{ reply.reply_to.get_nickname_or_username }}</span>
+                                 <div id="comment_{{ reply.pk }}">
+                                    <span>{{ reply.comment_text|safe }}</span>
+                                 </div>
+                                 <span style="display: block">{{ reply.comment_time|date:"Y-m-d  H:i:s" }}</span>
+                                 <a href="javascript:reply({{ reply.pk }});">回复</a>
+                            </div>
+                         </div>
+                         {% endfor %}
+                     </div>
+                  </div>
+                 {% empty %}
+                 <span id="no_comment" style="display: block; margin-bottom: 1em">暂无评论</span>
+                 {% endfor %}
+              </div>
+          {% if user.is_authenticated %}
+          <div class="row comment_send">
+             <div class="col-xs-3 col-sm-2 col-md-1 user_head">
+                <img src="{{ user.profile.user_head.url }}" alt="..." class="img-circle" style="width: 100%">
+             </div>
+             <div class="col-xs-9 col-md-10 textarea_container">
+                <form id="comment_form" action="{% url 'comment_update' %}"  method="post">
+                 {% csrf_token %}
+                 {% get_comment_form blog as comment_form %}
+                 {% for field in comment_form %}
+                    {{ field }}
+                 {% endfor %}
+                 <span id="comment_error" class="text-danger pull-left"></span>
+                 <input type="submit" value="发表评论" class="send_btn" style="display: block">
+                </form>
+             </div>
+          </div>
+           {% else %}
+           <div class="col-xs-11" style="margin-bottom: 3em">
+               <span>您目前处于游客状态，登录了才可以评论哦~</span>
+               <a href="{% url 'userlogin' %}?from={{ request.path }}">点击登录</a>
+               <span>or</span>
+               <a href="{% url 'register' %}?from={{ request.path }}">用户注册</a>
+           </div>
+           {% endif %}
+          </div>
+       </div>
+    </div>
+    <div class="col-md-3 visible-lg sidebar-container">
+         <div class="panel panel-info">
+          <div class="panel-heading" id="panel-heading"><h4>站点相关</h4></div>
+           <div class="panel-body">
+             <div class="sidebar">
+                <ul class="sidebar-menu">
+                    <li class="menu-list" style="">
+                        <span class="menu-btn">前端编程相关</span>
+                        <ul class="submenu" style="display: block">
+                            <li><a href="/blog/type/5">HTML5/CSS3</a></li>
+                            <li><a href="/blog/type/7">pyhton</a></li>
+                            <li><a href="/blog/type/4">javaScript/Vue</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <span class="menu-btn">后端编程相关</span>
+                        <ul class="submenu">
+                            <li><a href="/blog/type/1">Django</a></li>
+                            <li><a href="/blog/type/8">PHP</a></li>
+                            <li><a href="/blog/type/9">Node.js</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <span class="menu-btn">ACG</span>
+                        <ul  class="submenu">
+                            <li><a href="/blog/type/10">动漫</a></li>
+                            <li><a href="/blog/type/3">游戏</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-list">
+                        <!--//给文本加上a标签可以取消文本被选中的默认行为-->
+                        <span class="menu-btn">摄影及后期</span>
+                        <ul  class="submenu">
+                            <li><a href="/blog/type/2">摄影杂谈</a></li>
+                            <li><a href="/blog/type/8">摄影后期</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4>摄影作品</h4>
+                <ul class="photography">
+                    {% for photo in photos %}
+                    <li><a href="{{ photo.photo.url }}" target="_blank">{{ photo.photo_name }}<img src="{{ photo.photo.url }}"/></a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+           </div>
+        </div>
+    </div>
+   </div>
+</div>
+<!----------------------页面主体结束------------------->
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor-init.js' %}"></script>
+<script type="text/javascript" src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'bootstrap3.3/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+            $('.menu-list').click(function(){
+                $(this).children(".submenu").slideToggle('900')
+            })
+        })
+</script>
+<script type="text/javascript">
+    function numFormat(num){
+        return ('00' + num).substr(-2);
+    }
+    function timeFormat(timestamp){
+        var datetime = new Date(timestamp*1000);
+        var year = datetime.getFullYear();
+        var month = numFormat(datetime.getMonth() + 1);
+        var day = numFormat(datetime.getDate());
+        var hour = numFormat(datetime.getDate());
+        var minute = numFormat(datetime.getMinutes());
+        var second = numFormat(datetime.getSeconds());
+        return year + '-' + month + '-' + day + ' ' + hour + ':' + minute + ':' + second;
+    };
+    $('#comment_form').submit(function(){
+        $('#comment_error').text('');
+        if(CKEDITOR.instances['id_text'].document.getBody().getText().trim()==''){
+            $('#comment_error').text('评论内容不不能为空');
+            return false;
+        }
+        CKEDITOR.instances['id_text'].updateElement();
+        $.ajax({
+            url: "{% url 'comment_update' %}",
+            type: 'POST',
+            data: $(this).serialize(),
+            cache: false,
+            success: function(data){
+                console.log(data);
+                if(data['status'] == 'success'){
+                    if($('#reply_comment_id').val() == '0'){
+                        //插入评论
+                        var comment_html = '<div id="root_' + data['pk'] + '" class="comment-info" style="overflow: hidden">' + ' <div class="col-xs-3 col-md-1 comment_head">' + '<img src="' + data['img_src'] + '" alt="..." class="img-circle" style="width: 100%">' + ' </div>'
+                                            + '<div class="col-xs-9 col-md-10 user_comment">' + '<span class="nickname">' + data['username'] + '</span>' + '<div id="' + data['pk'] + '" class="comment_content">' + '<span>' + data['comment_text'] + '</span>' + '</div>'
+                                            + '<div class="comment_info">' + '<span>' + timeFormat(data['comment_time']) + '</span>' + '<span style="display: block"><a href="javascript:reply({{ comment.pk }});">回复</a></span>' + '</div>' + '</div>' + '</div>' + '<br>';
+                         $('#comment_list').prepend(comment_html);
+                    }else{
+                        //插入回复
+                        var reply_html = '<div class="col-xs-11 replay_container"><div class="row replay_info"><div class="col-xs-3 col-md-1">' + '<img src="' + data['img_src'] + '" alt="..." class="img-circle" style="width: 100%">' + '</div>'
+                                         + '<div class="col-xs-9" style="padding-left: 0; padding-top: 0.5em">' + '<span>' + data['username'] + '回复：</span>' + '<span>' + data['reply_to'] + '</span>' + '<div id="comment_{{ reply.pk }}">'
+                                         + '<span>'+ data['comment_text'] + '</span>' + '</div>' + '<span style="display: block">' + timeFormat(data['comment_time']) + '</span>' + '<a href="javascript:reply({{ reply.pk }});">回复</a>'
+                                         + '</div>' + '</div>'
+                        $("#root_" + data['root_pk']).append(reply_html);
+                        $('#reply_comment_id').val(0);
+                        $('#no_comment').remove();
+                    }
+                    CKEDITOR.instances['id_text'].setData('');
+                }else{
+                    $('#comment_error').text(data['message']);
+
+                }
+            },
+            error: function(xhr){
+                console.log(xhr);
+            },
+        });
+        return false;
+    })
+    function reply(reply_comment_id){
+        $('#reply_comment_id').val(reply_comment_id);
+        var html = $("#comment_" + reply_comment_id ).html();
+        $('#reply_content').html(html);
+        $('#reply_content_container').show();
+        $('html').animate({scrollTop: $('#comment_form').offset().top - 60},300,function(){
+            CKEDITOR.instances['id_text'].focus();
+
+        });
+    }
+</script>
+</body>
+</html>

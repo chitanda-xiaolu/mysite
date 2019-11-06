@@ -1,0 +1,167 @@
+body{
+    background: url(../images/bg_01.jpg);
+    background-repeat: repeat;
+    margin-top: 70px!important;
+}
+
+
+.article_container {
+    border-radius: 6px;
+    margin-left: 4.8%;
+    background: rgba(255,255,255,0.8);
+}
+
+
+/*-------------侧边栏-----------------*/
+.sidebar-container {
+    padding-right: 1.6em;
+    padding-left: 2.2em;
+}
+
+.menu-btn {
+    display: inline-block;
+    padding: 6px 6px;
+    width: 100%;
+    height: 32px;
+}
+
+.menu-list {
+    margin-bottom: 2em;
+}
+
+.submenu {
+    display: none;
+}
+
+.menu-btn:hover {
+    background: #E8E8E8;
+}
+
+.submenu>li {
+    margin: 2em;
+}
+
+.photography img {
+    width: 100%;
+}
+
+.sidebar span,.sidebar li {
+    user-select: none;
+}
+/*-------------侧边栏-----------------*/
+/*-------------博客卡片---------------*/
+.list-container {
+    margin-top: 1.6em;
+}
+
+.img-container {
+    overflow: hidden;
+}
+.thumbnail:hover{ box-shadow: 3px 3px 5px #999; }
+.thumbnail img {
+    width: 100%;
+	transition: 0.8s ;
+}
+
+.thumbnail:hover img {
+    transform: scale(1.1);
+}
+
+.caption {
+    padding: 0;
+}
+
+.caption span {
+    font-size: 11px;
+
+}
+/*-------------博客卡片---------------*/
+
+/*------------博客详情页-----------------*/
+.article-head {
+    border: #9b9b9b 1px solid;
+}
+
+.author-info {
+    margin-top: 1.3em;
+}
+
+.author-info>span {
+    margin-right: 1em;
+    font-size: 12px;
+}
+
+.article-content {
+    padding: 0.8em 1.6em;
+    border-top: #9b9b9b40 1px solid;
+}
+/*------------------博客详情页-----------*/
+
+/*--------------------评论框--------------*/
+.tanda_comment {
+    margin: 2em;
+}
+
+.comment_send {
+    margin-top: 1em;
+
+}
+
+.user_head {
+    margin-top: 1em;
+}
+.send_btn {
+    background: #00a1d6;
+    color: white;
+    border: solid 1px #00a1d6;
+    border-radius: 3px;
+    margin-bottom: 2em;
+}
+
+.submit_btn {
+    color: white;
+    margin-left: 1em;
+    text-align: center;
+    padding: 1.3em 0;
+    background: #00a1d6;
+    border-radius: 3px;
+}
+
+.submit_btn button {
+    background: #00a1d6;
+    border: none;
+}
+
+.comment_container {
+    height: 80px;
+    margin-left: 1em;
+}
+
+.comment_container {
+    margin-top: 2em;
+}
+
+.comment_head {
+    margin-top: 1em;
+}
+
+.user_comment {
+    margin: 0.6em 0;
+    padding-top: 0.3em;
+    border-top: 1px #e5e9ef solid;
+}
+
+.comment_info {
+    margin-top: 1em;
+}
+
+.replay_container {
+    margin: 1em 3.6em;
+}
+
+#id_text {
+    width: 100%;
+}
+
+/*--------------------评论框--------------*/
+

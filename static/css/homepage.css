@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    cursor: url(../images/web_cursor.cur),auto;
+}
+body{
+    background: url(../images/bg_01.jpg);
+    background-repeat: repeat;
+    margin-top: 70px!important;
+}
+
+a:hover,img:hover,.swiper-slide>img{
+    cursor: url(../images/web_cursor_link.cur), auto;
+}
+
+ul li {
+    list-style: none;
+}
+
+/*为导航栏添加毛玻璃特效*/
+#header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.65);
+
+}
+.collapse navbar-collapse>li>a {
+    color: #0f0f0f;
+}
+
+.navbar-right {
+    margin-right: 1em;
+}
+
+
+.banner_container {
+    height: 600px;
+    background: url(../images/bg.png);
+}
+
+.nav>li {
+    margin-left: 1em;
+}
+
+
+

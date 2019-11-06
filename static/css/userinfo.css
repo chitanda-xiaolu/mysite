@@ -1,0 +1,51 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: rgba(253, 255, 255, 0.15);
+}
+
+.info_container {
+    /*background: rgba(255,255,255,0.6);*/
+    background: url(../images/bg_pattern1.png);
+    background-repeat: repeat;
+    border-radius: 10px;
+
+}
+
+.info_container span {
+    font-size: 16px;
+}
+
+
+
+.img-circle {
+    margin: 46% 20%;
+}
+.info {
+    margin-top: 3.2em;
+}
+
+.info span {
+    display: block;
+    font-size: 20px;
+    margin-bottom: 1em;
+    background-image: url(../images/line_wave_w.png);
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+    color: lightpink;
+}
+
+i {
+    color: rgba(1,1,1,0.6)
+}
+
+.acount_setting {
+    margin-top: 5em;
+}
+
+.setting_list li {
+    margin: 2em;
+}
