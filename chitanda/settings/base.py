@@ -13,19 +13,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#ay%peepzqm*hnsq=644fl+nd#c&*b-cl&#_efuhyi2vhu0c(!'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -78,28 +67,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'chitanda.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'chitanda_db',
-#         'USER': 'chitanda',
-#         'PASSWORD': 'Xiaolu@123.',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
 
 
 
@@ -184,14 +151,3 @@ CACHES = {
     }
 }
 
-
-# 发送邮件设置
-# https://docs.djangoproject.com/en/2.0/ref/settings/#email
-# https://docs.djangoproject.com/en/2.0/topics/email/
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.qq.com'
-EMAIL_PORT = 25
-EMAIL_HOST_USER = '183138896@qq.com'
-EMAIL_HOST_PASSWORD = 'jadjtaskaiotcbea'
-EMAIL_SUBJECT_PREFIX = '[(・ω< )★ChitandaZone]'
-EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
