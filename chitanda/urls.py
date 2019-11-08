@@ -19,6 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from blog import views
 from user.views import about_me
+# from .views import page_error, page_not_found
 
 
 urlpatterns = [
@@ -32,3 +33,7 @@ urlpatterns = [
     path('aboutme/', about_me, name='aboutme'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+# handler404 = page_not_found
+# handler500 = page_error
