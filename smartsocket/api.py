@@ -22,12 +22,12 @@ def socket_data(request):
 @api_view(['GET', 'POST'])
 def socketSwitch1(request):
     data = request.POST
-    payload = str(data)
-    client = mqtt.Client()
-    client.on_connect = on_connect
-    client.on_message = on_message
-    client.connect("127.0.0.1", 1883, 60)
+    # payload = str(data)
+    # client = mqtt.Client()
+    # client.on_connect = on_connect
+    # client.on_message = on_message
+    # client.connect("127.0.0.1", 1883, 60)
     # 发布 test主题
-    client.publish("test", payload)
+    # client.publish("test", payload)
     print(data)
     return Response(None)
