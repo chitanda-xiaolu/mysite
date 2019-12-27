@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>Checkbox Using Javascript</title>
+    <link rel="stylesheet" href="{% static 'css/switch.css' %}">
+</head>
+<body>
+{% verbatim %}
+    <div class="outline">
+        <div class="outline-after"></div>
+    </div>
+    <div id="app" class="socket-control">
+        <div id="Socket1">
+            <span id="title1">Socket aperture1</span>
+            <span id="work-status">{{ msg1 }}</span>
+            <div class="checkbox">
+                <div class="inner" v-bind:class="{active: status1}">
+                    <div class="toggle" v-on:click="socketSwitch1"></div>
+                </div>
+            </div>
+        </div>
+        <div id="Socket2">
+            <span id="title1">Socket aperture2</span>
+            <span id="work-status">{{ msg2 }}</span>
+            <div class="checkbox">
+                <div class="inner" v-bind:class="{active: status2}">
+                    <div class="toggle" v-on:click="socketSwitch2"></div>
+                </div>
+            </div>
+        </div>
+        <div id="Socket3">
+            <span id="title1">Socket aperture3</span>
+            <span id="work-status">{{ msg3 }}</span>
+            <div class="checkbox">
+                <div class="inner" v-bind:class="{active: status3}">
+                    <div class="toggle" v-on:click="socketSwitch3"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <span>2016通信工程1班 陆军成</span>
+    </div>
+{% endverbatim %}
+<script src="{% static 'js/jquery-3.4.1.js' %}"></script>
+<script src="{% static 'js/vue.js' %}"></script>
+<script src="{% static 'js/reqwest.js' %}"></script>
+<script src="{% static 'js/js.cookie.js' %}"></script>
+<script type="text/Javascript">
+    var csrfToken = Cookies.get('csrftoken')
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            msg1: "断电",
+            msg2: "通电",
+            msg3: "通电",
+            status1: false,
+            status2: true,
+            status3: true,
+        },
+        created(){
+            this.getData();
+        },
+        methods: {
+            getData: function(){
+                var self = this;
+                reqwest({
+                    url: '/smartsocket/api',
+                    method: 'get',
+                    type: 'json',
+                    success: function(data){
+                    console.log(data.socketData[0])
+                    self.status1 = data.socketData[0].status
+                    self.msg1 = data.socketData[0].msg
+                }
+            })
+            },
+            socketSwitch1: function(){
+                var self = this;
+                this.status1 = !this.status1;
+                if(this.status1){
+                    this.msg1 = "通电";
+                }else{
+                    this.msg1 = "断电";
+                }
+                reqwest({
+                    url: '/smartsocket/1',
+                    method: 'post',
+                    headers: {
+                        "X-CSRFTOKEN": csrfToken,
+                    },
+                    data: {
+                        status1: self.status1,
+                    },
+                    success: function(){
+                        console.log('success')
+                    },
+                    error: function(err){
+                        console.log(err)
+                    },
+                })
+                },
+            socketSwitch2: function(){
+                this.status2 = !this.status2;
+                if(this.status2){
+                    this.msg2 = "通电";
+                }else{
+                    this.msg2 = "断电";
+                }
+                },
+            socketSwitch3: function(){
+                this.status3 = !this.status3;
+                if(this.status3){
+                    this.msg3 = "通电";
+                }else{
+                    this.msg3 = "断电";
+                }
+                }
+        },
+    })
+</script>
+</body>
+</html>

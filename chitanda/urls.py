@@ -30,6 +30,7 @@ urlpatterns = [
     path('comment/', include('comment.urls')),
     path('likes/', include('like.urls')),
     path('user/', include('user.urls')),
+    path('smartsocket/', include('smartsocket.urls')),
     path('aboutme/', about_me, name='aboutme'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)\
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
