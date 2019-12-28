@@ -72,7 +72,7 @@
                     type: 'json',
                     success: function(data){
                     console.log(data.socketData[0])
-                    self.status1 = data.socketData[0].status
+                    self.status1 = eval(data.socketData[0].status)
                     self.msg1 = data.socketData[0].msg
                 }
             })
