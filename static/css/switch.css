@@ -24,7 +24,7 @@ body {
     top: 1%;
     left: 10%;
     width: 80vw;
-    height: 30vh;
+    height: 28vh;
     border-radius: 10px;
     background: rgba(255, 255, 255, .7);
 }
@@ -34,17 +34,17 @@ body {
     top: 31.6%;
     left: 10%;
     width: 80vw;
-    height: 30vh;
+    height: 28vh;
     border-radius: 10px;
     background: rgba(255, 255, 255, .7);
 }
 
 #Socket3 {
     position: absolute;
-    top: 62%;
+    top: 62.3%;
     left: 10%;
     width: 80vw;
-    height: 30vh;
+    height: 28vh;
     border-radius: 10px;
     background: rgba(255, 255, 255, .7);
 }
@@ -54,19 +54,20 @@ body {
     top: 6%;
     left: 6%;
     color: #a9a9a9;
+    font-size: 20px;
     font-weight: bolder;
 }
 
-#work-status {
+.work-status {
     position: absolute;
-    top: 36%;
+    top: 32%;
     left: 12%;
     width: 30vw;
     height: 12vh;
-    line-height: 76px;
+    line-height: 170px;
     border-radius: 6px;
     background: rgba(0,0,0,0.5);
-    font-size: 42px;
+    font-size: 52px;
     color: white;
     font-weight: bolder;
     text-align: center;
@@ -74,7 +75,7 @@ body {
 
 .checkbox {
     position: absolute;
-    top: 36%;
+    top: 40%;
     left: 70%;
     width: 100px;
     height: 50px;
@@ -128,7 +129,7 @@ body {
 
 .checkbox .inner.active .toggle::before {
     content: 'ON';
-    color: rgb(31, 236, 236);
+    color: rgb(32, 233, 223);
 }
 
 .checkbox .inner.active .toggle {
