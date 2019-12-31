@@ -29,7 +29,7 @@ def socketSwitch1(request):
     # client.on_message = on_message
     client.connect("127.0.0.1", 1883, 60)
     # 发布 test主题
-    client.publish("test", statu)
+    client.publish("switch", statu)
     # print(statu)
     return Response(None)
 

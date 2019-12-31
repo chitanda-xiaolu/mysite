@@ -71,9 +71,11 @@
                     method: 'get',
                     type: 'json',
                     success: function(data){
-                    console.log(data.socketData[0])
+                    console.log(data.socketData[1])
                     self.status1 = eval(data.socketData[0].status)
                     self.msg1 = data.socketData[0].msg
+                    self.status2 = eval(data.socketData[1].status)
+                    self.msg2 = data.socketData[1].msg
                 }
             })
             },
@@ -103,12 +105,30 @@
                 })
                 },
             socketSwitch2: function(){
+                var self = this;
                 this.status2 = !this.status2;
                 if(this.status2){
                     this.msg2 = "通电";
                 }else{
                     this.msg2 = "断电";
                 }
+                console.log(this.status2)
+                reqwest({
+                    url: '/smartsocket/1',
+                    method: 'post',
+                    headers: {
+                        "X-CSRFTOKEN": csrfToken,
+                    },
+                    data: {
+                        status2: self.status2,
+                    },
+                    success: function(){
+                        console.log(self.status2)
+                    },
+                    error: function(err){
+                        console.log(err)
+                    },
+                })
                 },
             socketSwitch3: function(){
                 this.status3 = !this.status3;
