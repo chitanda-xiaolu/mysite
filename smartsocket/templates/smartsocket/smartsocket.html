@@ -15,7 +15,7 @@
         <div id="Socket1">
             <span class="title1">Socket aperture1</span>
             <span class="esp" v-show="esp8266NotRun">插座esp8266模块未处于工作状态，接收数据失败！~~</span>
-            <span id="work-status">{{ msg1 }}</span>
+            <span class="work-status">{{ msg1 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status1}">
                     <div class="toggle" v-on:click="socketSwitch1"></div>
@@ -25,7 +25,7 @@
         <div id="Socket2">
             <span class="title1">Socket aperture2</span>
             <span class="esp" v-show="esp8266NotRun">插座esp8266模块未处于工作状态，接收数据失败！~~</span>
-            <span id="work-status">{{ msg2 }}</span>
+            <span class="work-status">{{ msg2 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status2}">
                     <div class="toggle" v-on:click="socketSwitch2"></div>
@@ -34,7 +34,7 @@
         </div>
         <div id="Socket3">
             <span class="title1">Socket aperture3</span>
-            <span id="work-status">{{ msg3 }}</span>
+            <span class="work-status">{{ msg3 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status3}">
                     <div class="toggle" v-on:click="socketSwitch3"></div>
