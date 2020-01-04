@@ -13,8 +13,9 @@
     </div>
     <div id="app" class="socket-control">
         <div id="Socket1">
-            <span id="title1">Socket aperture1</span>
-            <span class="work-status">{{ msg1 }}</span>
+            <span class="title1">Socket aperture1</span>
+            <span class="esp" v-show="esp8266NotRun">插座esp8266模块未处于工作状态，接收数据失败！~~</span>
+            <span id="work-status">{{ msg1 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status1}">
                     <div class="toggle" v-on:click="socketSwitch1"></div>
@@ -22,8 +23,9 @@
             </div>
         </div>
         <div id="Socket2">
-            <span id="title1">Socket aperture2</span>
-            <span class="work-status">{{ msg2 }}</span>
+            <span class="title1">Socket aperture2</span>
+            <span class="esp" v-show="esp8266NotRun">插座esp8266模块未处于工作状态，接收数据失败！~~</span>
+            <span id="work-status">{{ msg2 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status2}">
                     <div class="toggle" v-on:click="socketSwitch2"></div>
@@ -31,8 +33,8 @@
             </div>
         </div>
         <div id="Socket3">
-            <span id="title1">Socket aperture3</span>
-            <span class="work-status">{{ msg3 }}</span>
+            <span class="title1">Socket aperture3</span>
+            <span id="work-status">{{ msg3 }}</span>
             <div class="checkbox">
                 <div class="inner" v-bind:class="{active: status3}">
                     <div class="toggle" v-on:click="socketSwitch3"></div>
@@ -40,6 +42,7 @@
             </div>
         </div>
     </div>
+    <div></div>
     <div class="footer">
         <span>2016通信工程1班 陆军成</span>
     </div>
@@ -54,14 +57,20 @@
         el: "#app",
         data: {
             msg1: "断电",
-            msg2: "通电",
+            msg2: "断电",
             msg3: "通电",
             status1: false,
-            status2: true,
+            status2: false,
             status3: true,
+            esp8266NotRun: true,
         },
         created(){
             this.getData();
+            function tip(){
+                if(!esp8266Run){
+                    alert('插座未启动，无法获取数据！~~')
+                }
+            }
         },
         methods: {
             getData: function(){
@@ -71,16 +80,27 @@
                     method: 'get',
                     type: 'json',
                     success: function(data){
-                    console.log(data.socketData[1])
+                    console.log(typeof(eval(data.socketData[1].status)))
                     self.status1 = eval(data.socketData[0].status)
                     self.msg1 = data.socketData[0].msg
                     self.status2 = eval(data.socketData[1].status)
                     self.msg2 = data.socketData[1].msg
-                }
-            })
+                    console.log(data.esp8266_run)
+                    console.log(typeof(eval(data.esp8266_run)))
+                    self.esp8266NotRun = !eval(data.esp8266_run)
+                    console.log(self.esp8266NotRun)
+                    },
+                    error: function(err){
+                        alert('插座esp8266模块未接通电源，接收数据失败！~')
+                    },
+                })
             },
             socketSwitch1: function(){
                 var self = this;
+                if(this.esp8266NotRun){
+                    alert('插座esp8266模块未处于工作状态，接收数据失败！~~')
+                    return 0
+                }
                 this.status1 = !this.status1;
                 if(this.status1){
                     this.msg1 = "通电";
@@ -106,6 +126,10 @@
                 },
             socketSwitch2: function(){
                 var self = this;
+                if(this.esp8266NotRun){
+                    alert('插座esp8266模块未处于工作状态，接收数据失败！~~')
+                    return 0
+                }
                 this.status2 = !this.status2;
                 if(this.status2){
                     this.msg2 = "通电";
