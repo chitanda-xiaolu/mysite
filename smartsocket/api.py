@@ -12,13 +12,19 @@ def on_message(client, userdata, msg):
     statu_dict = eval(eval(str(msg.payload)[1::]))
     socket1 = Socket.objects.get(id=1)
     socket2 = Socket.objects.get(id=2)
+    socket3 = Socket.objects.get(id=3)
     socket1.status = statu_dict['statu1']
     socket2.status = statu_dict['statu2']
+    socket3.status = statu_dict['statu3']
     if statu_dict['statu1'] == 'true':
         socket1.msg = '通电'
     else:
         socket1.msg = '断电'
     if statu_dict['statu2'] == 'true':
+        socket2.msg = '通电'
+    else:
+        socket2.msg = '断电'
+    if statu_dict['statu3'] == 'true':
         socket2.msg = '通电'
     else:
         socket2.msg = '断电'
