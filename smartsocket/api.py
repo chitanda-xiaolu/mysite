@@ -25,9 +25,9 @@ def on_message(client, userdata, msg):
     else:
         socket2.msg = '断电'
     if statu_dict['statu3'] == 'true':
-        socket2.msg = '通电'
+        socket3.msg = '通电'
     else:
-        socket2.msg = '断电'
+        socket3.msg = '断电'
     socket1.save()
     socket2.save()
     socket3.save()
