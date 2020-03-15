@@ -102,15 +102,11 @@
               socketSwitch1: function(){
                   var self = this;
                   if(this.esp8266NotRun){
-                      alert('插座esp8266模块未处于工作状态，接收数据失败！~~')
+                      alert('插座esp8266模块未处于工作状态，无法进行操作')
                       return 0
                   }
                   this.status1 = !this.status1;
-                  if(this.status1){
-                      this.msg1 = "通电";
-                  }else{
-                      this.msg1 = "断电";
-                  }
+                  this.status1 ? this.msg1 = "通电" : this.msg1 = "断电"
                   reqwest({
                       url: '/smartsocket/1',
                       method: 'post',
@@ -131,15 +127,11 @@
               socketSwitch2: function(){
                   var self = this;
                   if(this.esp8266NotRun){
-                      alert('插座esp8266模块未处于工作状态，接收数据失败！~~')
+                      alert('插座esp8266模块未处于工作状态，无法进行操作')
                       return 0
                   }
                   this.status2 = !this.status2;
-                  if(this.status2){
-                      this.msg2 = "通电";
-                  }else{
-                      this.msg2 = "断电";
-                  }
+                  this.status2 ? this.msg2 = "通电" : this.msg2 = "断电"
                   console.log(this.status2)
                   reqwest({
                       url: '/smartsocket/1',
@@ -161,15 +153,11 @@
               socketSwitch3: function(){
                   var self = this;
                   if(this.esp8266NotRun){
-                      alert('插座esp8266模块未处于工作状态，接收数据失败！~~')
+                      alert('插座esp8266模块未处于工作状态，无法进行操作')
                       return 0
                   }
                   this.status3 = !this.status3;
-                  if(this.status3){
-                      this.msg3 = "通电";
-                  }else{
-                      this.msg3 = "断电";
-                  }
+                  this.status3 ? this.msg3 = "通电" : this.msg3 = "断电"
                   console.log(this.status3)
                   reqwest({
                       url: '/smartsocket/1',
@@ -190,6 +178,25 @@
                   }
           },
       })
+
+      setInterval(listenData, 1000);
+
+      function listenData() {
+        reqwest({
+            url: '/smartsocket/api',
+            method: 'get',
+            type: 'json',
+            success: function(data) {
+                  vm.status1 = eval(data.socketData[0].status)
+                  vm.msg1 = data.socketData[0].msg
+                  vm.status2 = eval(data.socketData[1].status)
+                  vm.msg2 = data.socketData[1].msg
+                  vm.status3 = eval(data.socketData[2].status)
+                  vm.msg3 = data.socketData[2].msg
+                  vm.esp8266NotRun = !eval(data.esp8266_run)
+            }
+        })
+      }
     </script>
   </body>
 </html>
