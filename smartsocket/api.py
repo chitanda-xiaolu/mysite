@@ -30,6 +30,7 @@ def on_message(client, userdata, msg):
         socket2.msg = '断电'
     socket1.save()
     socket2.save()
+    socket3.save()
     client.disconnect()
 
 # def on_subscribe(client, userdata):
