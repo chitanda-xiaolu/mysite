@@ -4,3 +4,4 @@ from django.db import models
 class Socket(models.Model):
     status = models.CharField(max_length=15)
     msg = models.CharField(max_length=15)
+    ele = models.CharField(max_length=15)

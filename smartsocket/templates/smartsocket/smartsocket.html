@@ -11,7 +11,9 @@
     <main>
       <div id="app" class="socket-control">
         <div class="tip">
-          <span v-show="esp8266NotRun">esp8266未处于工作状态，数据获取失败</span>
+          <span v-show="esp8266NotRun"
+            >esp8266未处于工作状态，数据获取失败</span
+          >
         </div>
         <div class="Socket-container">
           <span class="title">Socket aperture1</span>
@@ -73,7 +75,7 @@
           created(){
               this.getData();
               function tip(){
-                  if(!esp8266Run){
+                  if(!esp8266NotRun){
                       alert('插座未启动，无法获取数据！~~')
                   }
               }

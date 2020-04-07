@@ -16,6 +16,9 @@ def on_message(client, userdata, msg):
     socket1.status = statu_dict['statu1']
     socket2.status = statu_dict['statu2']
     socket3.status = statu_dict['statu3']
+    socket1.ele = statu_dict['ele1']
+    socket2.ele = statu_dict['ele2']
+    socket3.ele = statu_dict['ele3']
     if statu_dict['statu1'] == 'true':
         socket1.msg = '通电'
     else:
