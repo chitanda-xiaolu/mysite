@@ -66,15 +66,28 @@ main {
 
 .work-status {
   width: 30vw;
-  height: 12vh;
+  height: 14.5vh;
   background: rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 56px;
+  font-size: 50px;
   font-weight: bolder;
   color: white;
+}
+
+.work-status span {
+  display: block;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.electricity {
+  font-size: 26px;
 }
 
 .title {
