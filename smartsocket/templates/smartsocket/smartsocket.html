@@ -118,7 +118,6 @@
                       return 0
                   }
                   this.status1 = !this.status1;
-                  this.status1 ? this.msg1 = "通电" : this.msg1 = "断电"
                   reqwest({
                       url: '/smartsocket/1',
                       method: 'post',
@@ -143,7 +142,6 @@
                       return 0
                   }
                   this.status2 = !this.status2;
-                  this.status2 ? this.msg2 = "通电" : this.msg2 = "断电"
                   console.log(this.status2)
                   reqwest({
                       url: '/smartsocket/1',
@@ -169,7 +167,6 @@
                       return 0
                   }
                   this.status3 = !this.status3;
-                  this.status3 ? this.msg3 = "通电" : this.msg3 = "断电"
                   console.log(this.status3)
                   reqwest({
                       url: '/smartsocket/1',
