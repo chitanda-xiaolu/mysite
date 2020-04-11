@@ -16,7 +16,9 @@ def on_message(client, userdata, msg):
     socket1.status = statu_dict['statu1']
     socket2.status = statu_dict['statu2']
     socket3.status = statu_dict['statu3']
-
+    socket1.msg = statu_dict['ele1']
+    socket2.msg = statu_dict['ele2']
+    socket3.msg = statu_dict['ele3']
     socket1.save()
     socket2.save()
     socket3.save()

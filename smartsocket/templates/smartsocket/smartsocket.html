@@ -74,12 +74,7 @@
       var vm = new Vue({
           el: "#app",
           data: {
-              msg1: "断电",
-              msg2: "断电",
-              msg3: "断电",
-              status1: false,
-              status2: false,
-              status3: false,
+
               electricity1: ' ',
               electricity2: ' ',
               electricity3: ' ',
@@ -104,6 +99,9 @@
                       self.status1 = eval(data.socketData[0].status)
                       self.status2 = eval(data.socketData[1].status)
                       self.status3 = eval(data.socketData[2].status)
+                      self.electricity1 = eval(data.socketData[0].msg)
+                      self.electricity2 = eval(data.socketData[1].msg)
+                      self.electricity3 = eval(data.socketData[2].msg)
                       self.esp8266NotRun = !eval(data.esp8266_run)
                       },
                       error: function(err){
@@ -199,6 +197,9 @@
                   vm.status1 = eval(data.socketData[0].status)
                   vm.status2 = eval(data.socketData[1].status)
                   vm.status3 = eval(data.socketData[2].status)
+                  vm.electricity1 = eval(data.socketData[0].msg)
+                  vm.electricity2 = eval(data.socketData[1].msg)
+                  vm.electricity3 = eval(data.socketData[2].msg)
                   vm.esp8266NotRun = !eval(data.esp8266_run)
             }
         })
