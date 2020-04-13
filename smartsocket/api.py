@@ -40,7 +40,7 @@ def socket_data(request):
         client.subscribe("socket_status")
         client.on_message = on_message
         # client.on_subscribe = on_subscribe
-        # client.loop_forever()
+        client.loop_forever()
     print('数据更新成功')
     socket = Socket.objects.all()
     socketSer = SocketSerializers(socket, many=True)
